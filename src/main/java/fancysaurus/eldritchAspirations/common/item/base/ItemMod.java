@@ -5,5 +5,5 @@ package fancysaurus.eldritchAspirations.common.item.base;
  */
 public class ItemMod
 {
-    
+
 }
