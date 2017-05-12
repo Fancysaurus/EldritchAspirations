@@ -2,7 +2,10 @@ package fancysaurus.eldritchAspirations.common.item.base;
 
 import fancysaurus.eldritchAspirations.common.lib.LibMisc;
 import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -42,8 +45,28 @@ public class ItemMod extends Item implements IVarientHolder
     }
 
     @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        int dmg = stack.getItemDamage();
+        String[] variants = getVarients();
+
+        String name;
+        if(dmg >= variants.length)
+            name = bareName;
+        else
+            name = variants[dmg];
+
+        return "item." + LibMisc.MOD_PREFIX + name;
+    }
+
+    @Override
+    public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
+        for(int i = 0; i <getVarients().length; i++)
+            subItems.add(new ItemStack(itemIn,1,i));
+    }
+
+    @Override
     public String[] getVarients() {
-        return new String[0];
+        return variants;
     }
 
     @Override

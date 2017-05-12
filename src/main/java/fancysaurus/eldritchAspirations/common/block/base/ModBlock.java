@@ -1,9 +1,15 @@
 package fancysaurus.eldritchAspirations.common.block.base;
 
+import fancysaurus.eldritchAspirations.common.item.base.ItemModBlock;
+import fancysaurus.eldritchAspirations.common.lib.LibMisc;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Created by fancysaurus on 5/8/17.
@@ -22,6 +28,24 @@ public class ModBlock extends Block implements IModBlock
 
         bareName = name;
         this.variants = variants;
+
+        if(registerInConstruction())
+            setUnlocalizedName(name);
+    }
+
+    @Override
+    public Block setUnlocalizedName(String name)
+    {
+        super.setUnlocalizedName(name);
+        setRegistryName(LibMisc.MOD_PREFIX + name);
+        GameRegistry.register(this);
+        GameRegistry.register(new ItemModBlock(this),new ResourceLocation(LibMisc.MOD_PREFIX+name));
+        return this;
+    }
+
+    public boolean registerInConstruction()
+    {
+        return true;
     }
 
     @Override
@@ -40,8 +64,14 @@ public class ModBlock extends Block implements IModBlock
     }
 
     @Override
+    public EnumRarity getBlockRarity(ItemStack stackIn)
+    {
+        return EnumRarity.COMMON;
+    }
+
+    @Override
     public String[] getVarients() {
-        return new String[0];
+        return variants;
     }
 
     @Override
