@@ -7,4 +7,6 @@ public final class LibMisc
 {
     public static final String MOD_ID = "ea";
     public static final String MOD_NAME = "EldritchAspirations";
+
+    public static final String MOD_PREFIX = MOD_ID+":";
 }

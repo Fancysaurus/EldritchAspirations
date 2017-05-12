@@ -19,10 +19,4 @@ public interface IVarientHolder
         return null;
     }
 
-    public String getModNamespace();
-
-    public default String getPrefix()
-    {
-        return getModNamespace() + ":";
-    }
 }
